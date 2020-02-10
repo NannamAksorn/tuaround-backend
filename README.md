@@ -37,7 +37,8 @@ createdb <db_name>
 ```
 sudo su - postgis
 psql <db_name>
-CREATE EXTENSION postgis;
+CREATE EXTENSION IF NOT EXISTS postgis;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 ```
 
 

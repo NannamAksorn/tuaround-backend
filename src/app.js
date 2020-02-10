@@ -1,5 +1,5 @@
 import express from "express";
-import setRoutes from "./routes.js";
+import setRoutes from "./routes/index.js";
 
 const isProduction = process.env.NODE_ENV === "PRODUCTION";
 const app = express();

@@ -13,6 +13,7 @@
   },
   "rules": {
     "strict": 0,
+    "node/no-unsupported-features/es-syntax": 0,
     "node/no-unpublished-import": 0,
     "node/prefer-global/buffer": ["error", "always"],
     "node/prefer-global/console": ["error", "always"],
