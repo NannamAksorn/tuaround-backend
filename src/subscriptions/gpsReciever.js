@@ -21,3 +21,7 @@ socket.on("TU-NGV", function(data) {
   ];
   sendOne("gps-log-topic", JSON.stringify(data_compressed));
 });
+
+socket.on('disconnect', function() {
+  socket.open();
+});
