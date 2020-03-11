@@ -8,8 +8,8 @@ socket.on("connect", function() {
 });
 
 socket.on("TU-NGV", function(data) {
-  if (data.satellite < 3 || data.speed === 0) return;
   console.log(data);
+  if (data.satellite < 3 || data.speed === 0) return;
   const d = new Date(data.timestamp);
   const data_compressed = [
     data.carno,
