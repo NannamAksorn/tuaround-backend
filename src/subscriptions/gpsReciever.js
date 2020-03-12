@@ -8,7 +8,6 @@ socket.on("connect", function() {
 });
 
 socket.on("TU-NGV", function(data) {
-  console.log(data);
   if (data.satellite < 3 || data.speed === 0) return;
   const d = new Date(data.timestamp);
   const data_compressed = [
@@ -22,6 +21,6 @@ socket.on("TU-NGV", function(data) {
   sendOne("gps-log-topic", JSON.stringify(data_compressed));
 });
 
-socket.on('disconnect', function() {
+socket.on("disconnect", function() {
   socket.open();
 });

@@ -20,7 +20,7 @@ export function sendOne(topic, messages) {
   const payloads = [{ topic, messages, partition: 0 }];
   producer.send(payloads, function(err, data) {
     if (err) {
-      console.log(err);
+      console.log(err, data);
       return 1;
     }
   });
