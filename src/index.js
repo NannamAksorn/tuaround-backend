@@ -14,7 +14,6 @@ if (process.env.NODE_ENV === "production") {
   require("dotenv").config({ path: "src/configs/.env.test" });
 }
 
-
 server.listen(process.env.PORT || 4435, function() {
   console.log(`running ${process.env.CURRENT_ENV}`);
   console.log("Listening on port " + server.address().port);

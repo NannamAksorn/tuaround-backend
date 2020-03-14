@@ -5,9 +5,27 @@ import { handleProcessGpsTopic, handleETATopic } from "./controller";
 const kafkaHost = "127.0.0.1:9092";
 
 const client = new kafka.KafkaClient({ kafkaHost });
+const topicsToCreate = [
+  {
+    topic: PROCESSED_GPS_TOPIC,
+    configEntries: [{ name: "retention.ms", value: '60000' }]
+  },
+  {
+    topic: ETA_TOPIC,
+    configEntries: [{ name: "retention.ms", value: '60000' }]
+  }
+];
+
+client.createTopics(topicsToCreate, (err, res) => {
+  if (err) return console.log(err);
+  console.log(res);
+});
 const topics = [
   {
     topic: PROCESSED_GPS_TOPIC
+  },
+  {
+    topic: ETA_TOPIC
   }
 ];
 const options = {};
@@ -27,6 +45,10 @@ consumer.on("message", function(message) {
     default:
       console.log("Invalid Topic" + topic);
   }
+});
+
+consumer.on("error", error => {
+  console.log(error);
 });
 
 export default consumer;
