@@ -6,9 +6,13 @@ export const handleProcessGpsTopic = value => {
 };
 
 export const handleETATopic = value => {
-  value = JSON.parse(value);
-  if (!value || value.length !== 2) return;
-  const [sid, eta] = value;
-  ETA.setStopETA(sid, eta);
-  io().emit(`ETA/${sid}`, eta);
+  try {
+    value = JSON.parse(value);
+    if (!value || value.length !== 2) return;
+    const [sid, eta] = value;
+    ETA.setStopETA(sid, eta);
+    io().emit(`ETA/${sid}`, eta);
+  } catch (err) {
+    console.log("ka/co:16");
+  }
 };
