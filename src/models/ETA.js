@@ -6,7 +6,7 @@ class ETA {
     this.state[sid] = eta;
   }
   getStopETA(sid) {
-    return this.state[sid];
+    return this.state[sid] || {};
   }
 }
 const eta = new ETA();

@@ -6,6 +6,7 @@ export const handleProcessGpsTopic = value => {
 };
 
 export const handleETATopic = value => {
+  value = JSON.parse(value);
   if (!value || value.length !== 2) return;
   const [sid, eta] = value;
   ETA.setStopETA(sid, eta);

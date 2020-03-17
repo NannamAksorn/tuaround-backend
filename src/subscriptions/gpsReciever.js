@@ -1,5 +1,6 @@
 import io from "socket.io-client";
 import { sendOne } from "../kafka/producer";
+import { GPS_LOG_TOPIC } from "../kafka/type";
 
 const socket = io("https://service.mappico.co.th");
 
@@ -18,7 +19,7 @@ socket.on("TU-NGV", function(data) {
     data.speed,
     data.direction
   ];
-  sendOne("gps-log-topic", JSON.stringify(data_compressed));
+  sendOne(GPS_LOG_TOPIC, JSON.stringify(data_compressed));
 });
 
 socket.on("disconnect", function() {

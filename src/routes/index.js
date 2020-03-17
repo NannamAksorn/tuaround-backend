@@ -1,4 +1,5 @@
 import UserController from "../controllers/UserController";
+import StopController from "../controllers/StopController";
 import FacebookController from "../controllers/FacebookController";
 
 const setRoutes = server => {
@@ -19,6 +20,11 @@ const setRoutes = server => {
   server.get(["/facebook", "/instagram"], FacebookController.getSubscribe);
   server.post(["/facebook", "/instagram"], FacebookController.callbackWebhook);
   server.get("/facebook/feed", FacebookController.getFeed);
+
+  // stops
+  server.post(`/api/stops`, StopController.postStops);
+  server.get(`/api/stops`, StopController.getStops);
+  server.get("/api/stops/:sid/eta", StopController.getStopETA);
 };
 
 export default setRoutes;

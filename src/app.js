@@ -1,9 +1,33 @@
 import express from "express";
+import cors from "cors";
+import compression from "compression";
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
+
 import setRoutes from "./routes/index.js";
 
 const isProduction = process.env.NODE_ENV === "PRODUCTION";
+
+// Cors Option
+const origin = {
+  origin: isProduction ? "http://127.0.0.1" : "*"
+};
+// Limiter Option
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 min
+  max: 100 // 100 reqs
+});
+
+// Express
 const app = express();
+
+// Plugins
+app.use(compression());
+app.use(helmet());
 app.use(express.json());
+app.use(cors(origin));
+app.use(limiter);
+
 // Route
 setRoutes(app);
 /// catch 404 and forward to error handler
