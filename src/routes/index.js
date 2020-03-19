@@ -1,11 +1,10 @@
 import UserController from "../controllers/UserController";
+import WeatherController from "../controllers/WeatherController";
 import StopController from "../controllers/StopController";
 import FacebookController from "../controllers/FacebookController";
 
+
 const setRoutes = server => {
-  server.get(`/api`, (req, res) => {
-    return res.status(403).send("Forbidden");
-  });
 
   server.post(`/api/login`, UserController.postLogin);
   server.get(`/api/faculty`, UserController.getFaculty);
@@ -25,6 +24,16 @@ const setRoutes = server => {
   server.post(`/api/stops`, StopController.postStops);
   server.get(`/api/stops`, StopController.getStops);
   server.get("/api/stops/:sid/eta", StopController.getStopETA);
+
+  // Weather
+  server.get("/api/weather", WeatherController.getWeather);
+
+  // 404
+  server.get("*", (req, res) => {
+    return res
+      .status(404)
+      .send(`<h1>404 Your activities will be tracked! ${req.url}</h1>`);
+  });
 };
 
 export default setRoutes;
