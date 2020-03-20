@@ -1,4 +1,5 @@
 import WeatherService from "../services/WeatherService";
+WeatherService.initWeatherCronJob();
 
 export default class WeatherController {
   constructor() {}

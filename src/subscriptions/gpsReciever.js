@@ -4,7 +4,9 @@ import { GPS_LOG_TOPIC } from "../kafka/type";
 
 const socket = io("https://service.mappico.co.th");
 
+let isConnected = false;
 socket.on("connect", function() {
+  isConnected = true;
   socket.emit("room", "THAMMATRANS");
 });
 
@@ -23,5 +25,12 @@ socket.on("TU-NGV", function(data) {
 });
 
 socket.on("disconnect", function() {
-  socket.open();
+  let interval = setInterval(() => {
+    if (isConnected) {
+      clearInterval(interval);
+      interval = null;
+      return;
+    }
+    socket.open();
+  }, 5000);
 });
