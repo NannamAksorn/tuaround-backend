@@ -13,10 +13,11 @@ const origin = {
   origin: isProduction ? "http://127.0.0.1" : "*"
 };
 // Limiter Option
-const limiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 1 min
-  max: 100 // 100 reqs
-});
+export const limiter = (sec, maxReqs) =>
+  rateLimit({
+    windowMs: sec * 1000,
+    max: maxReqs
+  });
 
 // Express
 const app = express();
@@ -26,7 +27,10 @@ app.use(compression());
 app.use(helmet());
 app.use(express.json());
 app.use(cors(origin));
-app.use(limiter);
+// app.use(limiter(60, 100));
+
+// Public
+app.use(express.static("public"));
 
 // Route
 setRoutes(app);

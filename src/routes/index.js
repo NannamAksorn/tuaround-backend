@@ -1,11 +1,12 @@
+import { limiter } from "../app";
 import UserController from "../controllers/UserController";
 import WeatherController from "../controllers/WeatherController";
 import StopController from "../controllers/StopController";
 import FacebookController from "../controllers/FacebookController";
-
+import OtpController from "../controllers/OtpController";
+import TileController from "../controllers/TileController";
 
 const setRoutes = server => {
-
   server.post(`/api/login`, UserController.postLogin);
   server.get(`/api/faculty`, UserController.getFaculty);
   server.get(`/api/department`, UserController.getDepartment);
@@ -27,6 +28,13 @@ const setRoutes = server => {
 
   // Weather
   server.get("/api/weather", WeatherController.getWeather);
+
+  // otp
+  server.get("/api/otp/routers", OtpController.getRouters);
+
+  // tiles
+  server.get("/api/tiles/:mode/:z/:x/:y", TileController.getTile);
+  server.use("/api/tiles/", limiter(60, 5000));
 
   // 404
   server.get("*", (req, res) => {
